@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Object.defineProperty解析</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+// MVVM 双向数据绑定  vue、数据劫持+发布订阅模式  angular 脏检查、
+
+let obj = {}
+
+Object.defineProperty(obj,'school',{
+    configurable: true, // 默认false 不能被删除
+    // writable:true, // 可以修改value值
+    // value: 123,
+    enumerable:true, // 可以被枚举
+    get(){ // 获取obj.school的值时 会调用get方法
+        return '123'
+    },
+    set(val){ // 当school被修改的时候 会调用 set
+        console.log(val)
+    }
+})
+
+</script>
