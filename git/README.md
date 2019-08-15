@@ -27,6 +27,10 @@ git checkout -b dev 创建并切换到dev分支
 git merge dev 合并dev分支
 ```
 
+## 本地文件提交 -> gitbub
+
+- 现有gitbub账号
+
 
 
 ## linux命令
