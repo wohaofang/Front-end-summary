@@ -29,7 +29,9 @@ git merge dev 合并dev分支
 
 ## 本地文件提交 -> gitbub
 
-- 现有gitbub账号
+- 现有gitbub账号 一个仓库
+- git remote add origin '地址'
+- git push -u origin master
 
 
 
