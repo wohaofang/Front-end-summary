@@ -8,6 +8,27 @@
 </head>
 <body>
     丁铭 
-    
+    <div id="clock"></div>
 </body>
+<script>
+// setInterval(()=>{
+//     let xhr = new XMLHttpRequest()
+//     xhr.open('get','/clock',true)
+//     xhr.onload = function(){
+//         if(this.status == 200){
+//             clock.innerHTML = xhr.response
+//         }
+//     }
+//     xhr.send()
+// },1000)
+
+fetch('/clock',{
+    method:'get'
+}).then((res)=>{
+    return res.text()
+}).then((data)=>{
+    console.log(data)
+    clock.innerHTML = data
+})
+</script>
 </html>
