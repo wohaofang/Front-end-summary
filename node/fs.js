@@ -49,3 +49,6 @@ async function read3(){
     console.log(cont)
 }
 read3()
+
+
+// promise 解决了 毁掉地狱和合并同步异步返回结果  async await 简化promise
