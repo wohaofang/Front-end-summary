@@ -1,7 +1,13 @@
  import React ,{Component} from 'react';
+ import ReactDom from 'react-dom';
 
+
+//  propTypes 属性校验
   class B extends Component{
-  
+      // 当子组件将要接收到父组件传给它的新属性时候
+    componentWillReceiveProps(){
+        console.log('componentWillReceiveProps')
+    }
      render(){
          return(
             <div>
@@ -24,10 +30,17 @@
     componentWillMount(){
         console.log('1.组件将要加载')
     }
+
     sumClick = ()=>{
         this.setState(prevState=>({
             count:prevState.count+1
         }))
+    }
+    del=()=>{
+        ReactDom.unmountComponentAtNode(document.querySelector('#root'))
+    }
+    componentWillUnmount(){
+        console.log('componentWillUnmount')
     }
     render(){
         return(
@@ -36,6 +49,7 @@
                     this.state.count
                 }
                 <button onClick={this.sumClick}>+1</button>
+                <button onClick={this.del}>Kill</button>
                 <B count = {this.state.count}/>
             </div>
         )
