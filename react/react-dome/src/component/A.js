@@ -1,7 +1,6 @@
  import React ,{Component} from 'react';
  import ReactDom from 'react-dom';
 
-
 //  propTypes 属性校验
   class B extends Component{
       // 当子组件将要接收到父组件传给它的新属性时候
