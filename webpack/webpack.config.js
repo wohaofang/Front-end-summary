@@ -1,10 +1,17 @@
 const path = require('path')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 
 
 // webpack 内部有一个事件流，tapable
 module.exports = {
-    entry: './src/index.js', // 入口
+    entry: {
+        index: './src/index.js',
+        base : './src/base.js',
+        common: './comm.js',
+        // vendor: 'jquery', // 引入第三方库
+    }, // 入口
     output:{
         path:path.join(__dirname,'dist'),//输出的文件夹，只能是绝对路径
         // name 是entry名字main(默认)，hash根据
@@ -22,13 +29,24 @@ module.exports = {
         ]
     },
     plugins:[
+        // 用来自动向模块内注入变量
+        new webpack.ProvidePlugin({
+            // $: 'jquery'
+        }),
+        new CleanWebpackPlugin(),
         // 插件可以自动产出html文件
         new HtmlWebpackPlugin({
             template: './src/index.html', // 指定产出的模板
             filename: 'index.html', // 产出的html文件名
-            title:'hello webpack',
-            // hash: true,
-        })
+            title:'index',
+            chunks:['index','common'], // 产出的html文件中引入代码快
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/index.html', // 指定产出的模板
+            filename: 'base.html', // 产出的html文件名
+            title:'base',
+            chunks:['base','common'],
+        }),
     ],
     // 配置此静态文件服务器，可以用来预览打包后的项目
     devServer:{
