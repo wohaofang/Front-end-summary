@@ -2,12 +2,16 @@ import React from 'react';
 import './App.css';
 import { Button } from 'antd';
 
-function App() {
-  return (
-    <div className="App">
-      <Button type="primary">Button</Button>
-    </div>
-  );
+
+class App extends React.Component{
+  render(){
+    return(
+      <div className="App">
+        <Button type="primary">Button</Button>
+        {this.props.children}
+      </div>
+    )
+  }
 }
 
 export default App;

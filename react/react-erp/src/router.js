@@ -16,7 +16,7 @@ export default class ERoute extends React.Component{
                     <Route path='/'>
                         <App>
                             <Switch>
-                                <Route exact path='/' component={login}/>
+                                <Route exact path='/' component={Login}/>
                                 <Route path="/home">
                                     <Home>
                                         <Switch>
