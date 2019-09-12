@@ -86,6 +86,28 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/_css-loader@3.2.0@css-loader/dist/cjs.js!./node_modules/_less-loader@5.0.0@less-loader/dist/cjs.js!./src/css/less.less":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@3.2.0@css-loader/dist/cjs.js!./node_modules/_less-loader@5.0.0@less-loader/dist/cjs.js!./src/css/less.less ***!
+  \*********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@3.2.0@css-loader/dist/runtime/api.js */ \"./node_modules/_css-loader@3.2.0@css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \".myless {\\n  color: #ccc;\\n}\\n\", \"\"]);\n\n\n//# sourceURL=webpack:///./src/css/less.less?./node_modules/_css-loader@3.2.0@css-loader/dist/cjs.js!./node_modules/_less-loader@5.0.0@less-loader/dist/cjs.js");
+
+/***/ }),
+
+/***/ "./node_modules/_css-loader@3.2.0@css-loader/dist/cjs.js!./node_modules/_sass-loader@8.0.0@sass-loader/dist/cjs.js!./src/css/sass.scss":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@3.2.0@css-loader/dist/cjs.js!./node_modules/_sass-loader@8.0.0@sass-loader/dist/cjs.js!./src/css/sass.scss ***!
+  \*********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@3.2.0@css-loader/dist/runtime/api.js */ \"./node_modules/_css-loader@3.2.0@css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \".mysass {\\n  color: red; }\\n\", \"\"]);\n\n\n//# sourceURL=webpack:///./src/css/sass.scss?./node_modules/_css-loader@3.2.0@css-loader/dist/cjs.js!./node_modules/_sass-loader@8.0.0@sass-loader/dist/cjs.js");
+
+/***/ }),
+
 /***/ "./node_modules/_css-loader@3.2.0@css-loader/dist/cjs.js!./src/index.css":
 /*!*******************************************************************************!*\
   !*** ./node_modules/_css-loader@3.2.0@css-loader/dist/cjs.js!./src/index.css ***!
@@ -133,6 +155,28 @@ eval("\n\nvar stylesInDom = {};\n\nvar isOldIE = function isOldIE() {\n  var mem
 
 /***/ }),
 
+/***/ "./src/css/less.less":
+/*!***************************!*\
+  !*** ./src/css/less.less ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var content = __webpack_require__(/*! !../../node_modules/_css-loader@3.2.0@css-loader/dist/cjs.js!../../node_modules/_less-loader@5.0.0@less-loader/dist/cjs.js!./less.less */ \"./node_modules/_css-loader@3.2.0@css-loader/dist/cjs.js!./node_modules/_less-loader@5.0.0@less-loader/dist/cjs.js!./src/css/less.less\");\n\nif (typeof content === 'string') {\n  content = [[module.i, content, '']];\n}\n\nvar options = {}\n\noptions.insert = \"head\";\noptions.singleton = false;\n\nvar update = __webpack_require__(/*! ../../node_modules/_style-loader@1.0.0@style-loader/dist/runtime/injectStylesIntoStyleTag.js */ \"./node_modules/_style-loader@1.0.0@style-loader/dist/runtime/injectStylesIntoStyleTag.js\")(content, options);\n\nif (content.locals) {\n  module.exports = content.locals;\n}\n\n\n//# sourceURL=webpack:///./src/css/less.less?");
+
+/***/ }),
+
+/***/ "./src/css/sass.scss":
+/*!***************************!*\
+  !*** ./src/css/sass.scss ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var content = __webpack_require__(/*! !../../node_modules/_css-loader@3.2.0@css-loader/dist/cjs.js!../../node_modules/_sass-loader@8.0.0@sass-loader/dist/cjs.js!./sass.scss */ \"./node_modules/_css-loader@3.2.0@css-loader/dist/cjs.js!./node_modules/_sass-loader@8.0.0@sass-loader/dist/cjs.js!./src/css/sass.scss\");\n\nif (typeof content === 'string') {\n  content = [[module.i, content, '']];\n}\n\nvar options = {}\n\noptions.insert = \"head\";\noptions.singleton = false;\n\nvar update = __webpack_require__(/*! ../../node_modules/_style-loader@1.0.0@style-loader/dist/runtime/injectStylesIntoStyleTag.js */ \"./node_modules/_style-loader@1.0.0@style-loader/dist/runtime/injectStylesIntoStyleTag.js\")(content, options);\n\nif (content.locals) {\n  module.exports = content.locals;\n}\n\n\n//# sourceURL=webpack:///./src/css/sass.scss?");
+
+/***/ }),
+
 /***/ "./src/img/1.png":
 /*!***********************!*\
   !*** ./src/img/1.png ***!
@@ -140,7 +184,7 @@ eval("\n\nvar stylesInDom = {};\n\nvar isOldIE = function isOldIE() {\n  var mem
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__.p + \"/img/d95c24d43ff99d5eda23d02ef97556ee.png\";\n\n//# sourceURL=webpack:///./src/img/1.png?");
+eval("module.exports = __webpack_require__.p + \"img/d95c24d43ff99d5eda23d02ef97556ee.png\";\n\n//# sourceURL=webpack:///./src/img/1.png?");
 
 /***/ }),
 
@@ -162,7 +206,7 @@ eval("var content = __webpack_require__(/*! !../node_modules/_css-loader@3.2.0@c
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! ./index.css */ \"./src/index.css\")\n\nlet src = __webpack_require__(/*! ./img/1.png */ \"./src/img/1.png\")\n\nlet img = new Image()\nimg.src = src;\ndocument.body.appendChild(img)\n\n//# sourceURL=webpack:///./src/main.js?");
+eval("__webpack_require__(/*! ./index.css */ \"./src/index.css\")\n__webpack_require__(/*! ./css/less.less */ \"./src/css/less.less\")\n__webpack_require__(/*! ./css/sass.scss */ \"./src/css/sass.scss\")\n\nlet src = __webpack_require__(/*! ./img/1.png */ \"./src/img/1.png\")\n\nlet img = new Image()\nimg.src = src;\ndocument.body.appendChild(img)\n\n//# sourceURL=webpack:///./src/main.js?");
 
 /***/ })
 

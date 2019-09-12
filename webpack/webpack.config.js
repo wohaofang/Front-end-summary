@@ -30,9 +30,11 @@ module.exports = {
             },
             {
                 //file-loader 解析图片地址
+                // ,'url-loader'
                 test: /\.(png|jpg|gif|svg)/,
+                // loader : ['file-loader'],
                 use:{
-                    loader : ['file-loader','url-loader'],
+                    loader: 'url-loader',
                     options:{
                         limit:10*1024,
                         outputPath:'img/',
@@ -42,7 +44,15 @@ module.exports = {
             {
                 test:/\.(html|htm)/,
                 loader:'html-withimg-loader',
-            }
+            },
+            {
+                test:/\.less$/, 
+                loader:['style-loader','css-loader','less-loader'],
+            },
+            {
+                test:/\.scss$/, 
+                loader:['style-loader','css-loader','sass-loader'],
+            },
         ]
     },
     plugins:[
