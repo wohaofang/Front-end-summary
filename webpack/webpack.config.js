@@ -26,7 +26,7 @@ module.exports = {
                 // css-loader 用来解析处理css文件中的url路径
                 // style-loader 可以把css文件变成style标签插入head中
                 // 多个laoder 有顺序要求 是从右往左写
-                loader:['style-loader','css-loader'],
+                loader:['style-loader','css-loader','postcss-loader'],
             },
             {
                 //file-loader 解析图片地址
