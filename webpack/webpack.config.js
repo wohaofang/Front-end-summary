@@ -53,6 +53,18 @@ module.exports = {
                 test:/\.scss$/, 
                 loader:['style-loader','css-loader','sass-loader'],
             },
+            {
+                test:/\.js/,
+                use:{
+                    loader : 'babel-loader',
+                    options:{
+                        
+                    },
+                    query:{
+                        presets:['env','stage-0','react']
+                    }
+                }
+            }
         ]
     },
     plugins:[
