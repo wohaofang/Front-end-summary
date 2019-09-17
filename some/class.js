@@ -30,4 +30,16 @@
 
  let aa = new Child('dingming',19)
 
- aa.hello()
+//  aa.hello()
+
+class Ha{
+    constructor(){
+        this.aa 
+    }
+    aa(){
+        console.log('aaa')
+    }
+}
+
+var bb = new Ha()
+bb.aa()
