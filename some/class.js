@@ -42,4 +42,31 @@ class Ha{
 }
 
 var bb = new Ha()
-bb.aa()
+// bb.aa()
+var aa = () => {
+    setTimeout(() => {
+      console.log('任务队列函数1')
+    }, 0)
+    var cc = new Promise((resolve,reject)=>{
+        console.log(1234)
+        resolve(1)
+    })
+    cc.then(res=>{console.log('res',res)})
+    for (let i = 0; i < 5000; i++) {
+        console.log('a的for循环')
+    }
+    console.log('a事件执行完')
+}
+
+aa()
+
+/**
+ * 执行顺序
+ * 
+1234
+5000 a的for循环
+a事件执行完
+res 1
+
+任务队列函数1
+ * */ 
