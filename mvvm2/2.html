@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2 数据劫持</title>
+</head>
+<body>
+    <div id="app">
+        {{a}}
+    </div>
+</body>
+
+<script>
+    window.hc = new HC({
+        el: '#app',
+        data: {a:{a:1}} // Object.defineProperty()
+    });
+
+    function HC(options = {}){
+        // vm.$options
+        this.$options = options //将所有属性挂在在了$options
+        // this._data
+        var data = this._data = this.$options.data
+
+        observe(data) //观察data对象
+
+        //  数据代理  this 代理了 _data
+       
+    }
+
+    // 观察对象  给对象增加 Object.defineProperty()
+    function observe(data){
+        if(typeof data !==Object){
+            return
+        }
+        return new Observe(data)
+    }
+
+    function Observe(data){ // 主要逻辑  // 递归
+        for(let key in data){ // 把data属性通过object.defineProperty的方式 定义属性
+            let val = data[key]
+            // observe(val);
+            Object.defineProperty(data,key,{
+                enumerable : true, // 可以被枚举
+                get(){
+                    return val;
+                },
+                set(newVal){ //更改值得时候
+                    if(newVal === val){ //值相同的时候
+                        return
+                    }
+                    val = newVal;  //如果以后再获取值得时候，将刚设置的值 丢回去
+                    // observe(newVal); // 给新值 添加get set 属性
+                }
+            })
+        }
+    }
+    
+
+
+
+
+    // for(let key in data){
+    //     Object.defineProperty(this,key,{
+    //         enumerable:true,
+    //         get(){
+    //             return this._data[key]; // this.a = {a:1}
+    //         },
+    //         set(newVal){
+    //             return this._data[key] = newVal
+    //         }
+    //     })
+    // }
+
+    /*
+        vue 特点 不能新增不存在的属性  不存在的属性没有 get和set  就不会监听数据的变化了
+        深度响应  因为每次赋予一个新对象时 会给这个新对象增加数据劫持
+    */
+
+</script>
+</html>

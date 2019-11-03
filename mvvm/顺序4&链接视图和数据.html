@@ -91,6 +91,7 @@ function Observe(data){ //这里写主要逻辑
         Object.defineProperty(data,key,{
             enumerable:true,
             get(){
+                console.log(dep)
                 Dep.target && dep.addSub(Dep.target)
                 return val
             },
@@ -129,6 +130,8 @@ function Watcher(vm,exp,fn){ //watch是个类 通过这个类创建的实例都�
         val = val[v]
     })
     Dep.target = null
+    console.log(111)
+
 }
 Watcher.prototype.update = function(){
     let val = this.vm

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4 视图与数据的链接</title>
+</head>
+<body>
+    <div id="app">
+        <p>a的值{{a.a}}</p>
+        <div>b的值{{b}}</div>
+    </div>
+</body>
+
+<script>
+ 
+
+    function HC(options = {}){
+        // vm.$options
+        this.$options = options //将所有属性挂在在了$options
+        // this._data
+        var data = this._data = this.$options.data
+
+        observe(data) //观察data对象
+
+        //  数据代理  this 代理了 _data
+        for(let key in data){
+            Object.defineProperty(this,key,{
+                enumerable:true,
+                get(){
+                    return this._data[key]; // this.a = {a:1}
+                },
+                set(newVal){
+                    return this._data[key] = newVal
+                }
+            })
+        }
+       
+       new Compile(options.el,this)
+    }
+
+    // 观察对象  给对象增加 Object.defineProperty()
+    function observe(data){
+        if(typeof data !== 'object'){
+            return
+        }
+        return new Observe(data)
+    }
+
+    function Observe(data){ // 主要逻辑  // 递归
+        let dep = new Dep()
+        for(let key in data){ // 把data属性通过object.defineProperty的方式 定义属性
+            let val = data[key]
+            observe(val);
+            Object.defineProperty(data,key,{
+                enumerable : true, // 可以被枚举
+                get(){
+                    Dep.target && dep.addSub(Dep.target); //这样就可以将watcher放入dep中
+                    return val;
+                },
+                set(newVal){ //更改值得时候
+                    if(newVal === val){ //值相同的时候
+                        return
+                    }
+                    val = newVal;  //如果以后再获取值得时候，将刚设置的值 丢回去
+                    observe(newVal); // 给新值 添加get set 属性
+                    dep.notify() // 在set的时候执行下notify 让所有的watch的update方法执行
+                }
+            })
+        }
+    }
+    
+    function Compile(el,vm){ // 编译
+        // el 表示替换的范围
+        vm.$el =  document.querySelector(el);
+        let fragment = document.createDocumentFragment() // 创建文档碎片 将dom放到内存中   
+        while(child = vm.$el.firstChild){ //将 app内的内容 移入内存中
+          fragment.appendChild(child)
+        }
+
+        replace(fragment)
+
+        function replace(fragment){
+            Array.from(fragment.childNodes).forEach((item)=>{ // 循环每一层
+                let text = item.textContent; //获取内容
+                let reg = /\{\{(.*)\}\}/; // 正则取出{{}}中的内容
+                if(item.nodeType === 3 && reg.test(text)){ // item.nodeType = 3 为文本节点
+                    let arr = RegExp.$1.split('.')
+                    let val = vm;
+                    arr.forEach(v=>{ // 取this.a.a / this.b
+                        val = val[v]
+                    })
+                    // 将 vm 和 RegExp.$1也传入 Watcher
+                    new Watcher(vm,RegExp.$1,function(newVal){ // 回调函数里需要接收一个新的值newVal
+                        item.textContent = text.replace(/\{\{(.*)\}\}/,newVal)
+                    })
+                    // 替换的逻辑 触发订阅发布模式
+
+                    item.textContent = text.replace(/\{\{(.*)\}\}/,val)
+                }
+                if(item.childNodes){
+                    replace(item) // 循环替换
+                }
+            })
+        }
+
+        vm.$el.appendChild(fragment) // 从内存中取出
+
+    }
+
+
+
+    // 发布订阅
+    function Dep(){
+        this.subs = [];
+    }
+
+    Dep.prototype.addSub = function (sub){ // 订阅 将fn放入subs数组中
+        this.subs.push(sub)
+    }
+
+    // 规定 绑定的方法 默认都有update这个方法 // 需要依次的执行update方法 发布
+    Dep.prototype.notify = function(){
+        this.subs.forEach(sub=>sub.update())
+    }
+    // Watcher
+    function Watcher(vm,exp,fn){   // Watch是一个类  通过这个类创建的实例都拥有update方法
+        this.fn = fn; //传函数
+        this.vm = vm;
+        this.exp = exp; 
+        // console.log(this.vm,this.exp )
+
+        //将 watcher 添加到订阅中
+        Dep.target = this;
+        let val = vm;
+        let arr = exp.split('.');
+        arr.forEach((k)=>{  // 取this.a.a  ！！！！此时 会调用get方法
+            val = val[k]
+        })
+        Dep.target = null;
+        console.log(111)
+    }
+
+    Watcher.prototype.update = function(){
+        let val = this.vm
+        let arr = this.exp.split('.')
+        arr.forEach((v)=>{
+            val = val[v]
+        })
+        this.fn(val)
+    }
+
+    
+    window.hc = new HC({
+        el: '#app',
+        data: {
+            a:{a:'是A'},
+            b: '是B'
+        } 
+    });
+</script>
+</html>

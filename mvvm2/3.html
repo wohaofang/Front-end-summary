@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3 compile</title>
+</head>
+<body>
+    <div id="app">
+        <p>a的值{{a.a}}</p>
+        <div>b的值{{b}}</div>
+    </div>
+</body>
+
+<script>
+    window.hc = new HC({
+        el: '#app',
+        data: {
+            a:{a:'是A'},
+            b: '是B'
+        } 
+    });
+
+    function HC(options = {}){
+        // vm.$options
+        this.$options = options //将所有属性挂在在了$options
+        // this._data
+        var data = this._data = this.$options.data
+
+        observe(data) //观察data对象
+
+        //  数据代理  this 代理了 _data
+        for(let key in data){
+            Object.defineProperty(this,key,{
+                enumerable:true,
+                get(){
+                    return this._data[key]; // this.a = {a:1}
+                },
+                set(newVal){
+                    return this._data[key] = newVal
+                }
+            })
+        }
+       
+       new Compile(options.el,this)
+    }
+
+    // 观察对象  给对象增加 Object.defineProperty()
+    function observe(data){
+        if(typeof data !==Object){
+            return 
+        }
+        return new Observe(data)
+    }
+
+    function Observe(data){ // 主要逻辑  // 递归
+        for(let key in data){ // 把data属性通过object.defineProperty的方式 定义属性
+            let val = data[key]
+            observe(val);
+            Object.defineProperty(data,key,{
+                enumerable : true, // 可以被枚举
+                get(){
+                    return val;
+                },
+                set(newVal){ //更改值得时候
+                    if(newVal === val){ //值相同的时候
+                        return
+                    }
+                    val = newVal;  //如果以后再获取值得时候，将刚设置的值 丢回去
+                    observe(newVal); // 给新值 添加get set 属性
+                }
+            })
+        }
+    }
+    
+    function Compile(el,vm){ // 编译
+        // el 表示替换的范围
+        vm.$el =  document.querySelector(el);
+        let fragment = document.createDocumentFragment() // 创建文档碎片 将dom放到内存中   
+        while(child = vm.$el.firstChild){ //将 app内的内容 移入内存中
+          fragment.appendChild(child)
+        }
+
+        replace(fragment)
+        vm.$el.appendChild(fragment) // 从内存中取出
+
+        function replace(fragment){
+            Array.from(fragment.childNodes).forEach((item)=>{ // 循环每一层
+                let text = item.textContent; //获取内容
+                let reg = /\{\{(.*)\}\}/; // 正则取出{{}}中的内容
+                if(item.nodeType === 3 && reg.test(text)){ // item.nodeType = 3 为文本节点
+                    console.log(RegExp.$1) // a.a b
+                    let arr = RegExp.$1.split('.')
+                    let val = vm;
+                    arr.forEach(v=>{ // 取this.a.a / this.b
+                        val = val[v]
+                    })
+                    item.textContent = text.replace(/\{\{(.*)\}\}/,val)
+                }
+                if(item.childNodes){
+                    replace(item) // 循环替换
+                }
+            })
+        }
+    }
+
+
+
+
+
+ 
+
+    /*
+        vue 特点 不能新增不存在的属性  不存在的属性没有 get和set  就不会监听数据的变化了
+        深度响应  因为每次赋予一个新对象时 会给这个新对象增加数据劫持
+    */
+
+</script>
+</html>
