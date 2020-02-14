@@ -18,6 +18,9 @@
       }
  }
 
+ let aaa = new Parent('111')
+ aaa.getName()
+ Parent.hello()
  class Child extends Parent{
      constructor(name,age){
         super(name)
@@ -28,7 +31,7 @@
      }
  }
 
- let aa = new Child('dingming',19)
+//  let aa = new Child('dingming',19)
 
 //  aa.hello()
 
@@ -43,7 +46,7 @@ class Ha{
 
 var bb = new Ha()
 // bb.aa()
-var aa = () => {
+var aa1 = () => {
     setTimeout(() => {
       console.log('任务队列函数1')
     }, 0)
@@ -58,7 +61,7 @@ var aa = () => {
     console.log('a事件执行完')
 }
 
-aa()
+// aa1()
 
 /**
  * 执行顺序

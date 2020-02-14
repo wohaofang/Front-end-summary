@@ -47,3 +47,28 @@ git merge dev 合并dev分支
 - cat 查看文件
 - vi 编辑文件
  - :q 退出  :q! 强制退出 :wq 保存退出
+
+
+### git commit前规范检查
+
+类似与vue的生命周期钩子，git的版本也存在生命周期 git hooks。
+
+- pre-commit:在comment前触发
+- pre-push：在push前触发
+
+### husky 配置
+
+Husky 是一个为 git 客户端增加 hook 的工具，将其安装到项目中，会自动在 .git 目录下增加相应的钩子
+
+在 packjson 中添加配置项：
+```
+scripts:{},
+
+"husky": {
+  "hooks": {
+    "pre-commit": "npm run lint:style && npm run lint:css && npm run lint"
+  }
+}
+
+```
+以上，在每次提交之前，都会按照配置的 eslint-config 和 stylelint-config 进行业务代码 js 和 css 样式检查
